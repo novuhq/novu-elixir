@@ -1,13 +1,21 @@
 defmodule Novu.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/novuhq/elixir"
+  @version "0.1.0"
+
   def project do
     [
       app: :novu,
-      version: "0.1.0",
+      description: "Elixir SDK for Novu",
+      deps: deps(),
+      docs: docs(),
       elixir: "~> 1.11",
+      name: "Novu",
+      package: package(),
+      source_url: @source_url,
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      version: @version
     ]
   end
 
@@ -26,7 +34,28 @@ defmodule Novu.MixProject do
 
       # Development Dependencies
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.27", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp package do
+    [
+      files: ~w(lib mix.exs README.md LICENSE),
+      licenses: ["MIT"],
+      links: %{
+        Website: "https://novu.co/",
+        Changelog: "#{@source_url}/releases",
+        GitHub: @source_url
+      }
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      logo: "priv/assets/logo.png",
+      extras: ["README.md"]
     ]
   end
 end
