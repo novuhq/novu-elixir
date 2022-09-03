@@ -24,6 +24,33 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  def patch(url, body) do
+    url
+    |> build_req()
+    |> Req.patch!(json: body)
+    |> handle_response()
+  rescue
+    e -> handle_response(e)
+  end
+
+  def post(url, body) do
+    url
+    |> build_req()
+    |> Req.post!(json: body)
+    |> handle_response()
+  rescue
+    e -> handle_response(e)
+  end
+
+  def put(url, body) do
+    url
+    |> build_req()
+    |> Req.put!(json: body)
+    |> handle_response()
+  rescue
+    e -> handle_response(e)
+  end
+
   defp api_key, do: Application.fetch_env!(:novu, :api_key)
 
   defp base_domain, do: Application.fetch_env!(:novu, :domain)
