@@ -15,10 +15,10 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
-  def post(url, body) do
+  def get(url, params \\ %{}) do
     url
     |> build_req()
-    |> Req.post!(json: body)
+    |> Req.get!(params: params)
     |> handle_response()
   rescue
     e -> handle_response(e)
