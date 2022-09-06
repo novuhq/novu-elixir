@@ -6,6 +6,9 @@ defmodule Novu.Http do
 
   @user_agent "novuhq-elixir/ " <> Mix.Project.config()[:version] <> " (+https://github.com/novuhq/elixir)"
 
+  @type response() :: {:ok, map()} | {:error, list() | :timeout | any()}
+
+  @spec delete(url :: Req.url()) :: response()
   def delete(url) do
     url
     |> build_req()
@@ -15,6 +18,7 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @spec get(url :: Req.url(), params :: map()) :: response()
   def get(url, params \\ %{}) do
     url
     |> build_req()
@@ -24,6 +28,7 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @spec patch(url :: Req.url(), body :: map()) :: response()
   def patch(url, body) do
     url
     |> build_req()
@@ -33,6 +38,7 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @spec post(url :: Req.url(), body :: map()) :: response()
   def post(url, body) do
     url
     |> build_req()
@@ -42,6 +48,7 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @spec put(url :: Req.url(), params :: map()) :: response()
   def put(url, body) do
     url
     |> build_req()

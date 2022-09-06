@@ -1,6 +1,6 @@
 defmodule Novu.Events do
   @moduledoc """
-  Provide access to the Novu Event API 
+  Provide access to the Novu Event API
   """
 
   alias Novu.Http
@@ -11,16 +11,18 @@ defmodule Novu.Events do
 
   [API Documentation](https://docs.novu.co/api/#broadcast-event-to-all)
   """
+  @spec broadcast_to_all(name :: String.t(), payload :: map(), opts :: Keyword.t()) :: Http.response()
   def broadcast_to_all(name, payload, opts \\ []) do
     payload = build_event_payload(name, payload, nil, opts)
     Http.post("/v1/events/trigger/broadcast", payload)
   end
 
   @doc """
-  Using a previously generated transactionId during the event trigger, will cancel any active or pending workflows. 
+  Using a previously generated transactionId during the event trigger, will cancel any active or pending workflows.
 
   [API Documentation](https://docs.novu.co/api/#cancel-triggered-event)
   """
+  @spec cancel_event(transaction_id :: String.t()) :: Http.response()
   def cancel_event(transaction_id) do
     Http.delete("/v1/events/trigger/#{transaction_id}")
   end
@@ -32,6 +34,7 @@ defmodule Novu.Events do
 
   [API Documentation](https://docs.novu.co/api/#trigger-event)
   """
+  @spec trigger_event(name :: String.t(), payload :: map(), to :: String.t(), opts :: Keyword.t()) :: Http.response()
   def trigger_event(name, payload, to, opts \\ []) do
     payload = build_event_payload(name, payload, to, opts)
     Http.post("/v1/events/trigger", payload)

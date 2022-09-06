@@ -10,6 +10,7 @@ defmodule Novu.Subscribers do
 
   [API Documentation](https://docs.novu.co/api/get-subscribers/)
   """
+  @spec get_subscribers(opts :: Keyword.t()) :: Http.response()
   def get_subscribers(opts \\ []) do
     page = Keyword.get(opts, :page)
     params = add_optional_value(%{}, :page, page)
@@ -23,6 +24,7 @@ defmodule Novu.Subscribers do
 
   [API Documentation](https://docs.novu.co/api/create-subscriber/)
   """
+  @spec create_subscriber(subscriber_id :: String.t(), opts :: Keyword.t()) :: Http.response()
   def create_subscriber(subscriber_id, opts \\ []) do
     payload =
       opts
@@ -37,6 +39,7 @@ defmodule Novu.Subscribers do
 
   [API Documentation](https://docs.novu.co/api/get-subscriber/)
   """
+  @spec get_subscriber(subscriber_id :: String.t()) :: Http.response()
   def get_subscriber(subscriber_id) do
     Http.get("/v1/subscribers/#{URI.encode(subscriber_id)}")
   end
@@ -46,6 +49,7 @@ defmodule Novu.Subscribers do
 
   [API Documentation](https://docs.novu.co/api/update-subscriber/)
   """
+  @spec update_subscriber(subscriber_id :: String.t(), opts :: Keyword.t()) :: Http.response()
   def update_subscriber(subscriber_id, opts \\ []) do
     payload = build_subscriber_payload(opts)
     Http.put("/v1/subscribers/#{URI.encode(subscriber_id)}", payload)
@@ -56,6 +60,7 @@ defmodule Novu.Subscribers do
 
   [API Documentation](https://docs.novu.co/api/delete-subscriber/)
   """
+  @spec delete_subscriber(subscriber_id :: String.t()) :: Http.response()
   def delete_subscriber(subscriber_id) do
     Http.delete("/v1/subscribers/#{URI.encode(subscriber_id)}")
   end
@@ -65,6 +70,7 @@ defmodule Novu.Subscribers do
 
   [API Documentation](https://docs.novu.co/api/update-subscriber-credentials/)
   """
+  @spec update_subscriber_credentials(subscriber_id :: String.t(), opts :: map()) :: Http.response()
   def update_subscriber_credentials(subscriber_id, provider_id, opts \\ []) do
     webhook_url = Keyword.get(opts, :webhook_url)
     device_tokens = Keyword.get(opts, :device_tokens)
@@ -82,6 +88,7 @@ defmodule Novu.Subscribers do
   @doc """
   [API Documentation](https://docs.novu.co/api/get-subscriber-preference/)
   """
+  @spec get_subscriber_preferences(subscriber_id :: String.t()) :: Http.response()
   def get_subscriber_preferences(subscriber_id) do
     Http.get("/v1/subscribers/#{URI.encode(subscriber_id)}/preferences")
   end
@@ -89,6 +96,12 @@ defmodule Novu.Subscribers do
   @doc """
   [API Documentation](https://docs.novu.co/api/update-subscriber-preferences/)
   """
+  @spec update_subscriber_preferences(
+          subscriber_id :: String.t(),
+          template_id :: String.t(),
+          type :: String.t(),
+          enabled :: boolean()
+        ) :: Http.response()
   def update_subscriber_preferences(subscriber_id, template_id, type, enabled) do
     payload = %{
       channel: %{
@@ -103,6 +116,7 @@ defmodule Novu.Subscribers do
   @doc """
   [API Documentation](https://docs.novu.co/api/get-a-notification-feed-for-a-particular-subscriber/)
   """
+  @spec get_notification_feed(subscriber_id :: String.t(), opts :: Keyword.t()) :: Http.response()
   def get_notification_feed(subscriber_id, opts \\ []) do
     page = Keyword.get(opts, :page, 0)
     feed_identifier = Keyword.get(opts, :feed_identifier)
@@ -119,6 +133,7 @@ defmodule Novu.Subscribers do
   @doc """
   [API Documentation](https://docs.novu.co/api/get-the-unseen-notification-count-for-subscribers-feed/)
   """
+  @spec get_unseen_count(subscriber_id :: String.t(), opts :: Keyword.t()) :: Http.response()
   def get_unseen_count(subscriber_id, opts \\ []) do
     seen = Keyword.get(opts, :seen)
     params = add_optional_value(%{}, :seen, seen)
@@ -129,6 +144,7 @@ defmodule Novu.Subscribers do
   @doc """
   [API Documentation](https://docs.novu.co/api/mark-a-subscriber-feed-message-as-seen/)
   """
+  @spec mark_message_as_seen(subscriber_id :: String.t(), message_id :: String.t()) :: Http.response()
   def mark_message_as_seen(subscriber_id, message_id) do
     payload = %{
       messageId: message_id,
@@ -141,6 +157,8 @@ defmodule Novu.Subscribers do
   @doc """
   [API Documentation](https://docs.novu.co/api/mark-a-subscriber-feed-message-as-seen/)
   """
+  @spec mark_action_as_seen(subscriber_id :: String.t(), message_id :: String.t(), type :: String.t()) ::
+          Http.response()
   def mark_action_as_seen(subscriber_id, message_id, type) do
     payload = %{
       messageId: message_id,
