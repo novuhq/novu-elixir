@@ -1,5 +1,7 @@
 # Novu
 
+[![CI](https://github.com/novuhq/elixir/actions/workflows/ci.yml/badge.svg)](https://github.com/novuhq/elixir/actions/workflows/ci.yml)
+
 An Elixir SDK for [Novu](https://novu.co/).
 
 ## Installation
