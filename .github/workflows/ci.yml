@@ -12,10 +12,9 @@ on:
       - main
 
 env:
-  CACHE_VERSION: v1
-  ELIXIR_VERSION: "1.13"
+  ELIXIR_VERSION: "1.14"
   MIX_ENV: test
-  OTP_VERSION: "25"
+  OTP_VERSION: "25.0"
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -26,107 +25,180 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - id: beam
+        name: Setup Beam
         uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ env.ELIXIR_VERSION }}
           otp-version: ${{ env.OTP_VERSION }}
+
       - id: cache
+        name: Cache
         uses: actions/cache@v3
         with:
           key: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-credo-${{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-credo-${{ hashFiles('mix.lock') }}-${{ format('refs/heads/{0}', github.event.repository.default_branch) }}
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-credo-
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
             _build
             deps
+
       - if: steps.cache.outputs.cache-hit != 'true'
+        name: Deps
         run: mix deps.get
-      - run: mix credo
+
+      - name: Credo
+        run: mix credo
 
   Dialyzer:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - id: beam
+        name: Setup Beam
         uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ env.ELIXIR_VERSION }}
           otp-version: ${{ env.OTP_VERSION }}
+
       - id: cache
+        name: Cache
         uses: actions/cache@v3
         with:
           key: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-dialyzer-${{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-dialyzer-${{ hashFiles('mix.lock') }}-${{ format('refs/heads/{0}', github.event.repository.default_branch) }}
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-dialyzer-
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
             _build
             deps
+
       - if: steps.cache.outputs.cache-hit != 'true'
+        name: Deps
         run: mix deps.get
-      - run: mix dialyzer
+
+      - name: Dialyzer
+        run: mix dialyzer
+
+  Doctor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - id: beam
+        name: Setup Beam
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+          otp-version: ${{ env.OTP_VERSION }}
+
+      - id: cache
+        name: Cache
+        uses: actions/cache@v3
+        with:
+          key: |
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
+          restore-keys: |
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
+          path: |
+            _build
+            deps
+
+      - if: steps.cache.outputs.cache-hit != 'true'
+        name: Deps
+        run: mix deps.get
+
+      - name: Doctor
+        run: mix doctor
 
   Format:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - id: beam
+        name: Setup Beam
         uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ env.ELIXIR_VERSION }}
           otp-version: ${{ env.OTP_VERSION }}
+
       - id: cache
+        name: Cache
         uses: actions/cache@v3
         with:
           key: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-format-${{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-format-${{ hashFiles('mix.lock') }}-${{ format('refs/heads/{0}', github.event.repository.default_branch) }}
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-format-
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
             _build
             deps
+
       - if: steps.cache.outputs.cache-hit != 'true'
+        name: Deps
         run: mix deps.get
-      - run: mix format --check-formatted
+
+      - name: Format
+        run: mix format --check-formatted
 
   Test:
     name: Test (Elixir ${{ matrix.versions.elixir }} OTP ${{ matrix.versions.otp }})
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - id: beam
+        name: Setup Beam
         uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ matrix.versions.elixir }}
           otp-version: ${{ matrix.versions.otp }}
+
       - id: cache
+        name: Cache
         uses: actions/cache@v3
         with:
           key: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-test-${{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-test-${{ hashFiles('mix.lock') }}-${{ format('refs/heads/{0}', github.event.repository.default_branch) }}
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-test-
-            ${{ env.CACHE_VERSION }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
             _build
             deps
+
       - if: steps.cache.outputs.cache-hit != 'true'
+        name: Deps
         run: mix deps.get
-      - run: mix compile --warnings-as-errors
-      - run: mix test
+
+      - name: Compile
+        run: mix compile --warnings-as-errors
+
+      - name: Test
+        run: mix test
 
     strategy:
       fail-fast: false
@@ -137,4 +209,6 @@ jobs:
           - elixir: 1.12
             otp: 24
           - elixir: 1.13
+            otp: 25
+          - elixir: 1.14
             otp: 25

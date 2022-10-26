@@ -1,0 +1,52 @@
+---
+name: Publish
+
+on:
+  release:
+    types:
+      - published
+
+env:
+  ELIXIR_VERSION: "1.14"
+  OTP_VERSION: "25.5"
+
+jobs:
+  Hex:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - id: beam
+        name: Setup Beam
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+          otp-version: ${{ env.OTP_VERSION }}
+
+      - id: cache
+        name: Cache
+        uses: actions/cache@v3
+        with:
+          key: |
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
+          restore-keys: |
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
+          path: |
+            _build
+            deps
+
+      - if: steps.cache.outputs.cache-hit != 'true'
+        name: Deps
+        run: mix deps.get
+
+      - name: Compile
+        run: mix compile --docs
+
+      - name: Publish
+        run: mix hex.publish --yes
+        with:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
