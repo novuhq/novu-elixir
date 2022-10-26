@@ -13,7 +13,6 @@ on:
 
 env:
   ELIXIR_VERSION: "1.14"
-  MIX_ENV: test
   OTP_VERSION: "25.0"
 
 concurrency:
@@ -164,6 +163,9 @@ jobs:
   Test:
     name: Test (Elixir ${{ matrix.versions.elixir }} OTP ${{ matrix.versions.otp }})
     runs-on: ubuntu-latest
+
+    env:
+      MIX_ENV: test
 
     steps:
       - name: Checkout
