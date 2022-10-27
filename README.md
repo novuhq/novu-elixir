@@ -11,7 +11,7 @@ Novu is available on Hex.pm. Just add this line to your `mix.exs` file:
 ```elixir
 def deps do
   [
-    {:novu, "~> 0.1.0"}
+    {:novu, "~> 0.2.0"}
   ]
 end
 ```
