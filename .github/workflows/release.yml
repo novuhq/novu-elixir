@@ -37,5 +37,5 @@ jobs:
         run: mix deps.get
       - run: mix compile --docs
       - run: mix hex.publish --yes
-        with:
+        env:
           HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
