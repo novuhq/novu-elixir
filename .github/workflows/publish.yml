@@ -48,5 +48,5 @@ jobs:
 
       - name: Publish
         run: mix hex.publish --yes
-        with:
+        env:
           HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
