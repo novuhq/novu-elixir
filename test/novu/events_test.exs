@@ -1,5 +1,5 @@
 defmodule Novu.EventsTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   import Novu.ApiTestHelpers
 
