@@ -1,6 +1,8 @@
 defmodule Novu.Http do
   @moduledoc """
-  Helper functions for interacting with Req.
+  A basic HTTP client for Novu using `Req`. Any request made with these modules
+  will include base headers, authentication, response parsing, and error
+  handling.
   """
   require Logger
 
@@ -8,6 +10,9 @@ defmodule Novu.Http do
 
   @type response() :: {:ok, map()} | {:error, list() | :timeout | any()}
 
+  @doc """
+  Makes a `DELETE` request to Novu.
+  """
   @spec delete(url :: Req.url()) :: response()
   def delete(url) do
     url
@@ -18,6 +23,9 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @doc """
+  Makes a `GET` request to Novu.
+  """
   @spec get(url :: Req.url(), params :: map()) :: response()
   def get(url, params \\ %{}) do
     url
@@ -28,6 +36,9 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @doc """
+  Makes a `PATCH` request to Novu.
+  """
   @spec patch(url :: Req.url(), body :: map()) :: response()
   def patch(url, body) do
     url
@@ -38,6 +49,9 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @doc """
+  Makes a `POST` request to Novu.
+  """
   @spec post(url :: Req.url(), body :: map()) :: response()
   def post(url, body) do
     url
@@ -48,6 +62,9 @@ defmodule Novu.Http do
     e -> handle_response(e)
   end
 
+  @doc """
+  Makes a `PUT` request to Novu.
+  """
   @spec put(url :: Req.url(), params :: map()) :: response()
   def put(url, body) do
     url

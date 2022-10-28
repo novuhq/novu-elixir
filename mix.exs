@@ -23,8 +23,7 @@ defmodule Novu.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      mod: {Novu.Application, []}
+      extra_applications: [:logger]
     ]
   end
 
@@ -37,6 +36,7 @@ defmodule Novu.MixProject do
       {:bypass, "~> 2.1", override: true, only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:doctor, "~> 0.19.0", only: [:dev, :test]},
       {:ex_doc, "~> 0.27", only: [:dev, :test], runtime: false}
     ]
   end
@@ -46,7 +46,7 @@ defmodule Novu.MixProject do
 
   defp package do
     [
-      files: ~w(lib mix.exs README.md LICENSE),
+      files: ~w(lib mix.exs CHANGELOG.md README.md LICENSE),
       licenses: ["MIT"],
       links: %{
         Website: "https://novu.co/",
@@ -60,7 +60,7 @@ defmodule Novu.MixProject do
     [
       main: "readme",
       logo: "priv/assets/logo.png",
-      extras: ["README.md"]
+      extras: ["CHANGELOG.md", "README.md"]
     ]
   end
 end

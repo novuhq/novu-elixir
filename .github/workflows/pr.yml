@@ -1,0 +1,26 @@
+---
+name: PR
+
+on:
+  pull_request_target:
+    types:
+      - edited
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  title:
+    name: Check Title
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            fix
+            feat
+            chore
