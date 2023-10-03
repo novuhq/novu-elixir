@@ -206,11 +206,12 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - elixir: 1.11
-            otp: 23
           - elixir: 1.12
             otp: 24
           - elixir: 1.13
             otp: 25
           - elixir: 1.14
             otp: 25
+          - elixir: 1.15
+            otp: 26
+
