@@ -46,7 +46,7 @@ defmodule Novu.MixProject do
 
   defp package do
     [
-      files: ~w(lib mix.exs CHANGELOG.md README.md LICENSE),
+      files: ~w(lib mix.exs CHANGELOG.md CONTRIBUTING.md README.md LICENSE),
       licenses: ["MIT"],
       links: %{
         Website: "https://novu.co/",
@@ -60,7 +60,11 @@ defmodule Novu.MixProject do
     [
       main: "readme",
       logo: "priv/assets/logo.png",
-      extras: ["CHANGELOG.md", "README.md"]
+      extras: [
+        "README.md": [filename: "readme", title: "Readme"],
+        "CONTRIBUTING.md": [filename: "contributing", title: "Contributing"],
+        "CHANGELOG.md": [filename: "changelog", title: "Changelog"]
+      ]
     ]
   end
 end
