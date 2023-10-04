@@ -53,7 +53,7 @@ defmodule Novu.Http do
   Makes a `POST` request to Novu.
   """
   @spec post(url :: Req.url(), body :: map()) :: response()
-  def post(url, body) do
+  def post(url, body \\ %{}) do
     url
     |> build_req()
     |> Req.post!(json: body)
