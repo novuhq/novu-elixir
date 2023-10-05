@@ -53,7 +53,7 @@ defmodule Novu.EnvironmentsTest do
         novu_response(conn, 201, %{data: %{data: %{name: name}}})
       end)
 
-      assert {:ok, _body} = Environments.create_environment(name, parentId: parent_id)
+      assert {:ok, _body} = Environments.create_environment(name, parent_id: parent_id)
     end
   end
 
@@ -112,7 +112,7 @@ defmodule Novu.EnvironmentsTest do
         novu_response(conn, 200, %{data: %{data: %{parentId: parent_id}}})
       end)
 
-      assert {:ok, _body} = Environments.update_environment(environment_id, parentId: parent_id)
+      assert {:ok, _body} = Environments.update_environment(environment_id, parent_id: parent_id)
     end
 
     test "supports optional inboundParseDomain", %{bypass: bypass} do
@@ -124,7 +124,7 @@ defmodule Novu.EnvironmentsTest do
         novu_response(conn, 200, %{data: %{data: %{inboundParseDomain: inbound_parse_domain}}})
       end)
 
-      assert {:ok, _body} = Environments.update_environment(environment_id, inboundParseDomain: inbound_parse_domain)
+      assert {:ok, _body} = Environments.update_environment(environment_id, inbound_parse_domain: inbound_parse_domain)
     end
   end
 

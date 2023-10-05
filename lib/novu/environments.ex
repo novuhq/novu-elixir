@@ -22,7 +22,7 @@ defmodule Novu.Environments do
   """
   @spec create_environment(name :: String.t(), opts :: Keyword.t()) :: Http.response()
   def create_environment(name, opts \\ []) do
-    payload = add_optional_value(%{name: name}, :parentId, Keyword.get(opts, :parentId))
+    payload = add_optional_value(%{name: name}, :parentId, Keyword.get(opts, :parent_id))
     Http.post("/v1/environments", payload)
   end
 
@@ -43,13 +43,13 @@ defmodule Novu.Environments do
   """
   @spec update_environment(environment_id :: String.t(), opts :: Keyword.t()) :: Http.response()
   def update_environment(environment_id, opts \\ []) do
-    dns = add_optional_value(%{}, :inboundParseDomain, Keyword.get(opts, :inboundParseDomain))
+    dns = add_optional_value(%{}, :inboundParseDomain, Keyword.get(opts, :inbound_parse_domain))
 
     payload =
       %{}
       |> add_optional_value(:name, Keyword.get(opts, :name))
       |> add_optional_value(:identifier, Keyword.get(opts, :identifier))
-      |> add_optional_value(:parentId, Keyword.get(opts, :parentId))
+      |> add_optional_value(:parentId, Keyword.get(opts, :parent_id))
       |> Map.put(:dns, dns)
 
     Http.put("/v1/environments/#{URI.encode(environment_id)}", payload)
