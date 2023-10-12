@@ -30,7 +30,8 @@ defmodule Novu.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:req, "~> 0.3.0"},
+      {:req, "~> 0.4.4"},
+      {:elixir_uuid, "~> 1.2"},
 
       # Development Dependencies
       {:bypass, "~> 2.1", override: true, only: :test},
