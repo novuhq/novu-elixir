@@ -37,7 +37,7 @@ defmodule Novu.MixProject do
       {:bypass, "~> 2.1", override: true, only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:doctor, "~> 0.19.0", only: [:dev, :test]},
+      {:doctor, "~> 0.19", only: [:dev, :test]},
       {:ex_doc, "~> 0.27", only: [:dev, :test], runtime: false}
     ]
   end
