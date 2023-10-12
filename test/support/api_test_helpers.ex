@@ -6,9 +6,13 @@ defmodule Novu.ApiTestHelpers do
     Jason.decode!(body)
   end
 
-  def novu_response(conn, status, body) do
-    conn
-    |> Plug.Conn.put_resp_header("content-type", "application/json")
+  def novu_response(conn, status, body, opts \\ []) do
+    %{"content-type" => "application/json"}
+    |> Map.merge(Keyword.get(opts, :headers, %{}))
+    |> Map.to_list()
+    |> List.foldl(conn, fn {header, value}, acc_conn ->
+      Plug.Conn.put_resp_header(acc_conn, header, value)
+    end)
     |> Plug.Conn.resp(status, Jason.encode!(body))
   end
 end
