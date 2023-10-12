@@ -30,13 +30,13 @@ defmodule Novu.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:req, "~> 0.3.0"},
+      {:req, "~> 0.3"},
 
       # Development Dependencies
       {:bypass, "~> 2.1", override: true, only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:doctor, "~> 0.19.0", only: [:dev, :test]},
+      {:doctor, "~> 0.19", only: [:dev, :test]},
       {:ex_doc, "~> 0.27", only: [:dev, :test], runtime: false}
     ]
   end
