@@ -111,7 +111,7 @@ defmodule Novu.Http do
       {"accept", "application/json"},
       {"content-type", "application/json"},
       {"authorization", "ApiKey #{api_key()}"},
-      {"Idempotency-Key", UUID.uuid4()}
+      {"idempotency-key", UUID.uuid4()}
     ]
   end
 end
