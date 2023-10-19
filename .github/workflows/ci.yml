@@ -39,9 +39,9 @@ jobs:
         uses: actions/cache@v3
         with:
           key: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
@@ -74,9 +74,9 @@ jobs:
         uses: actions/cache@v3
         with:
           key: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
@@ -109,9 +109,9 @@ jobs:
         uses: actions/cache@v3
         with:
           key: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
@@ -144,9 +144,9 @@ jobs:
         uses: actions/cache@v3
         with:
           key: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
@@ -183,9 +183,9 @@ jobs:
         uses: actions/cache@v3
         with:
           key: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-${{ github.ref }}
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-${{ github.ref }}
           restore-keys: |
-            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-{{ hashFiles('mix.lock') }}-
+            ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-${{ hashFiles('mix.lock') }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ github.job }}-
             ${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
           path: |
