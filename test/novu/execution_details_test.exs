@@ -24,8 +24,6 @@ defmodule Novu.ExecutionDetailsTest do
 
   describe "get-execution-details/1" do
     test "creates a GET to /v1/execution-details", %{bypass: bypass} do
-      notification_group_name = "Test"
-
       Bypass.expect(bypass, "GET", "/v1/execution-details", fn conn ->
         novu_response(conn, 200, %{data: []})
       end)
