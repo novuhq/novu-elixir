@@ -79,8 +79,27 @@ defmodule Novu.Http do
 
   defp base_domain, do: Application.fetch_env!(:novu, :domain)
 
+  defp wait_min, do: Application.get_env(:novu, :wait_min, 1000)
+  defp wait_max, do: Application.get_env(:novu, :wait_max, 10_000)
+  defp max_retries, do: Application.get_env(:novu, :max_retries, 3)
+  defp retry_log_level, do: Application.get_env(:novu, :retry_log_level, :warning)
+
+  defp retry_delay_function(n) do
+    min(Integer.pow(2, n) * wait_min(), wait_max())
+  end
+
   defp build_req(url),
-    do: Req.new(base_url: base_domain(), headers: request_headers(), url: url, user_agent: @user_agent)
+    do:
+      Req.new(
+        base_url: base_domain(),
+        headers: request_headers(),
+        url: url,
+        user_agent: @user_agent,
+        retry: :transient,
+        retry_delay: &retry_delay_function/1,
+        max_retries: max_retries(),
+        retry_log_level: retry_log_level()
+      )
 
   defp handle_response(%{body: body, status: status_code}) when status_code in 200..299, do: {:ok, body}
   defp handle_response(%{body: %{"errors" => errors}}), do: {:error, errors}
@@ -91,7 +110,8 @@ defmodule Novu.Http do
     [
       {"accept", "application/json"},
       {"content-type", "application/json"},
-      {"authorization", "ApiKey #{api_key()}"}
+      {"authorization", "ApiKey #{api_key()}"},
+      {"idempotency-key", UUID.uuid4()}
     ]
   end
 end
