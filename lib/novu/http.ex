@@ -10,6 +10,8 @@ defmodule Novu.Http do
 
   @type response() :: {:ok, map()} | {:error, list() | :timeout | any()}
 
+  @max_retries 0
+
   @doc """
   Makes a `DELETE` request to Novu.
   """
@@ -81,7 +83,7 @@ defmodule Novu.Http do
 
   defp wait_min, do: Application.get_env(:novu, :wait_min, 1000)
   defp wait_max, do: Application.get_env(:novu, :wait_max, 10_000)
-  defp max_retries, do: Application.get_env(:novu, :max_retries, 3)
+  defp max_retries, do: Application.get_env(:novu, :max_retries, @max_retries)
   defp retry_log_level, do: Application.get_env(:novu, :retry_log_level, :warning)
 
   defp retry_delay_function(n) do

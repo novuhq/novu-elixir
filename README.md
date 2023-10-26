@@ -28,7 +28,7 @@ config :novu,
   domain: "domain",  # required: your domain
   wait_min: 1000,  # optional: the minimum time to retry a request is milliseconds (default: 1000)
   wait_max: 10_000,  # optional: the maximum time to retry a request is milliseconds (default: 10_000)
-  max_retries: 3,  # optional: the amount of retries in case of responses 408/429/500/502/503/504 (default: 3)
+  max_retries: 3,  # optional: the amount of retries in case of responses 408/429/500/502/503/504 (default: 0)
   retry_log_level: :warning  # optional: the log level to emit retry logs at. Can be set to false do disable logging (default: :warning)
 ```
 

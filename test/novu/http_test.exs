@@ -25,6 +25,18 @@ defmodule Novu.HttpTest do
   end
 
   describe "build_req/1" do
+    test "default maximum retry should be zero", %{bypass: bypass} do
+      wait_min = 100
+      Application.put_env(:novu, :wait_min, wait_min)
+      Application.delete_env(:novu, :max_retries)
+
+      Bypass.expect_once(bypass, "GET", "/", fn conn ->
+        novu_response(conn, 500, %{data: %{error: "Internal Server Error"}})
+      end)
+
+      Http.get("/")
+    end
+
     test "creates a request with a minimum delay", %{bypass: bypass} do
       wait_min = 100
       Application.put_env(:novu, :wait_min, wait_min)
