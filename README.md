@@ -12,7 +12,7 @@ Novu is available on [hex.pm](https://hex.pm/packages/novu). Just add this line 
 ```elixir
 def deps do
   [
-    {:novu, "~> 0.2.0"}
+    {:novu, "~> 0.3.0"}
   ]
 end
 ```
