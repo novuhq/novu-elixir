@@ -1,11 +1,12 @@
 repo_name: novuhq/novu-elixir
 report_id: b6a87e3d7a5826a05a2872003a3371f4
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-09T15:12:21+00:00'
-requested_by: sccalabr
+timestamp: '2024-02-29T18:05:51+00:00'
+requested_by: btkostner
 provider: github
 branch: main
-detected_tools_count: 3
+detected_tools_count: 6
 tools:
 - name: Elixir
   description: Dynamic, functional language designed for building scalable and maintainable
@@ -17,7 +18,34 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1974/drop.png
+  detection_source_url: https://github.com/novuhq/novu-elixir
   detection_source: Repo Metadata
+- name: Swift
+  description: An innovative new programming language for Cocoa and Cocoa Touch.
+  website_url: https://developer.apple.com/swift/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1009/tuHsaI2U.png
+  detection_source_url: https://github.com/novuhq/novu-elixir/blob/main/mix.exs
+  detection_source: mix.exs
+  last_updated_by: Sean Callan
+  last_updated_on: 2022-08-30 17:18:42.000000000 Z
+- name: Credo
+  description: A static code analysis tool for the Elixir language
+  website_url: http://credo-ci.org/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Code Review
+  image_url: https://img.stackshare.io/service/5767/logo-462574d6fafd52114ceb5556a09cdf5a.png
+  detection_source_url: https://github.com/novuhq/novu-elixir/blob/main/mix.exs
+  detection_source: mix.exs
+  last_updated_by: Blake Kostner
+  last_updated_on: 2022-08-30 17:47:45.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -26,6 +54,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/novuhq/novu-elixir
   detection_source: Repo Metadata
 - name: GitHub Actions
   description: Automate your workflow from idea to production
@@ -35,6 +64,19 @@ tools:
   category: Build, Test, Deploy
   sub_category: Continuous Integration
   image_url: https://img.stackshare.io/service/11563/actions.png
-  detection_source: ".github/workflows/release.yml"
+  detection_source_url: https://github.com/novuhq/novu-elixir/blob/main/.github/workflows/ci.yml
+  detection_source: ".github/workflows/ci.yml"
   last_updated_by: Blake Kostner
   last_updated_on: 2022-10-28 16:04:50.000000000 Z
+- name: CocoaPods
+  description: A dependency manager for Swift and Objective-C Cocoa projects
+  website_url: https://cocoapods.org/
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: CocoaPods Packages
+  image_url: https://img.stackshare.io/service/2426/e1cbdef9d4b11484049a033886578e54_400x400.png
+  detection_source_url: https://github.com/novuhq/novu-elixir/blob/main/mix.exs
+  detection_source: mix.exs
+  last_updated_by: Sean Callan
+  last_updated_on: 2022-08-30 17:18:42.000000000 Z
