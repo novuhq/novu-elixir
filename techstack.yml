@@ -2,7 +2,7 @@ repo_name: novuhq/novu-elixir
 report_id: b6a87e3d7a5826a05a2872003a3371f4
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T09:22:27+00:00'
+timestamp: '2024-02-29T18:05:51+00:00'
 requested_by: btkostner
 provider: github
 branch: main
@@ -21,7 +21,7 @@ tools:
   detection_source_url: https://github.com/novuhq/novu-elixir
   detection_source: Repo Metadata
 - name: Swift
-  description: 'An innovative new programming language for Cocoa and Cocoa Touch. '
+  description: An innovative new programming language for Cocoa and Cocoa Touch.
   website_url: https://developer.apple.com/swift/
   license: Apache-2.0
   open_source: true
